@@ -10,4 +10,7 @@ public class CourseViewModel
     public List<SelectListItem> CourseTypes { get; set; } = [];
     public List<SelectListItem> Statuses { get; set; } = [];
     public List<SelectListItem> OracleLovItems { get; set; } = [];
+
+    // Selected value from SHOP.NL_00_01.
+    public string? SelectedOracleLovCode { get; set; }
 }
