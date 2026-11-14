@@ -35,6 +35,7 @@ public class CoursesController : Controller
         }
 
         // This demo intentionally does not save the course to a database.
+        // SelectedJobType contains the JobType key chosen in the SQL Server LOV.
         ViewBag.Message = "Form is valid. The selected lookup values are shown below.";
         await LoadLookupsAsync(model, cancellationToken);
         return View(model);
@@ -54,6 +55,9 @@ public class CoursesController : Controller
 
         model.OracleLovItems = (await _lookupService.GetOracleLovAsync(cancellationToken))
             .Select(x => new SelectListItem(x.Text, x.Value))
+            .ToList();
+
+        model.SqlServerJobTypes = (await _lookupService.GetSqlServerJobTypesAsync(cancellationToken))
             .ToList();
     }
 }
