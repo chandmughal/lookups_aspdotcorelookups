@@ -39,9 +39,9 @@ public class LookupService : ILookupService
 
         const string sql = """
             SELECT itm_cod, itm_desc
-            FROM shop.nl_00_01
+            FROM shop.nl_00_01 d
             WHERE cls_typ = 7
-            ORDER BY itm_cod DESC
+            ORDER BY 1 DESC
             """;
 
         var items = new List<LookupItem>();
