@@ -15,38 +15,44 @@ public class CoursesController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create(CancellationToken cancellationToken)
     {
         var model = new CourseViewModel();
-        LoadLookups(model);
+        await LoadLookupsAsync(model, cancellationToken);
         return View(model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(CourseViewModel model)
+    public async Task<IActionResult> Create(
+        CourseViewModel model,
+        CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
-            // Dropdown lists must be populated again when returning the form.
-            LoadLookups(model);
+            await LoadLookupsAsync(model, cancellationToken);
             return View(model);
         }
 
-        // This demo intentionally does not save to a database.
-        // At this point, pass model.Course to your repository/application service.
+        // This demo intentionally does not save the course to a database.
         ViewBag.Message = "Form is valid. The selected lookup values are shown below.";
-        LoadLookups(model);
+        await LoadLookupsAsync(model, cancellationToken);
         return View(model);
     }
 
-    private void LoadLookups(CourseViewModel model)
+    private async Task LoadLookupsAsync(
+        CourseViewModel model,
+        CancellationToken cancellationToken)
     {
         model.CourseTypes = _lookupService.GetCourseTypes()
             .Select(x => new SelectListItem(x.Text, x.Value))
             .ToList();
 
         model.Statuses = _lookupService.GetStatuses()
+            .Select(x => new SelectListItem(x.Text, x.Value))
+            .ToList();
+
+        model.OracleLovItems = (await _lookupService.GetOracleLovAsync(cancellationToken))
             .Select(x => new SelectListItem(x.Text, x.Value))
             .ToList();
     }
