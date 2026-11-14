@@ -21,13 +21,7 @@ A small MVC example showing reusable dropdown/List of Values (LOV) data through 
 
 ## Configure the Oracle connection string securely
 
-Do not commit database passwords to Git. In a terminal opened in the folder containing `LookupsDemo.csproj`, initialize User Secrets:
-
-```powershell
-dotnet user-secrets init
-```
-
-Then store the connection string locally (replace the password placeholder with the database password):
+Do not commit database passwords to Git. In a terminal opened in the folder containing `LookupsDemo.csproj`, store the connection string locally (replace the password placeholder with the database password):
 
 ```powershell
 dotnet user-secrets set "ConnectionStrings:oradb" "User Id=Shop;Password=YOUR_PASSWORD;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.1.215)(PORT=1521))(CONNECT_DATA=(SID=orc2)(SERVER=DEDICATED)))"
