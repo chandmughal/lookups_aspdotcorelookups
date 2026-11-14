@@ -4,7 +4,7 @@
 }
 
 <h2>Course setup</h2>
-<p class="text-muted">Both dropdowns are supplied by the same reusable lookup service.</p>
+<p class="text-muted">The first two dropdowns use static values. The third dropdown is loaded from Oracle.</p>
 
 @if (ViewBag.Message is not null)
 {
@@ -36,6 +36,14 @@
         <span asp-validation-for="Course.Status" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="SelectedOracleLovCode" class="form-label">Oracle LOV (CLS_TYP = 7)</label>
+        <select asp-for="SelectedOracleLovCode" asp-items="Model.OracleLovItems" class="form-select">
+            <option value="">-- Select Oracle value --</option>
+        </select>
+        <small class="form-text text-muted">Values come from SHOP.NL_00_01: ITM_COD is the option value and ITM_DESC is the displayed text.</small>
+    </div>
+
     <button type="submit" class="btn btn-primary">Validate form</button>
 </form>
 
@@ -50,6 +58,8 @@
         <dd class="col-sm-9">@Model.Course.CourseType</dd>
         <dt class="col-sm-3">Status</dt>
         <dd class="col-sm-9">@Model.Course.Status</dd>
+        <dt class="col-sm-3">Oracle LOV code</dt>
+        <dd class="col-sm-9">@Model.SelectedOracleLovCode</dd>
     </dl>
 }
 
