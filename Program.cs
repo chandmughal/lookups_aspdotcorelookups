@@ -4,7 +4,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-// Register the lookup service with dependency injection.
+// Scoped is appropriate because the lookup service opens database connections
+// per operation and may later depend on scoped data-access services.
 builder.Services.AddScoped<ILookupService, LookupService>();
 
 var app = builder.Build();
